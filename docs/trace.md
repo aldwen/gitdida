@@ -26,3 +26,7 @@ exceptiongs.py
 tox.ini 这个文件肯定需要再改
 
 继续恢复文件结构，尝试使用 pytest
+
+尝试中，停在编写 test_verison.py这里。如何读取 pyproject.toml 的内容呢？
+
+## 2023-12-21 00:11:00
