@@ -16,4 +16,13 @@ remote: Please see https://docs.github.com/en/get-started/getting-started-with-g
 引入 dynaconf,done.
 引入 logging，done。
 
+Poetry 的版本管理功能很弱，可能还是要使用第三方包。
+开始导入其他必要的包，不急，应当先编写测试。
+
+## 2023-12-20 22:56:43
+引入必要文件之：
+cmdline.py
+exceptiongs.py
+tox.ini 这个文件肯定需要再改
+
 继续恢复文件结构，尝试使用 pytest

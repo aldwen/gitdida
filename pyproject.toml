@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gitdida"
-version = "0.1.0"
+version = "0.2.0"
 description = "Auto commit with Gitpython, and send message with Dida365 if error occur."
 authors = ["aldwen <7362677@qq.com>"]
 license = "MIT"
@@ -9,6 +9,8 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 dynaconf = "^3.2.4"
+requests = "^2.31.0"
+pytest = "^7.4.3"
 
 
 [build-system]
