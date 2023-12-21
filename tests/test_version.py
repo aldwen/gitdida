@@ -1,5 +1,4 @@
 from importlib.metadata import version
-import src.gitdida
 import sys
 
 

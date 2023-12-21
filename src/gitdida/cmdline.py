@@ -1,8 +1,9 @@
 """Command line"""
 import click
 from click import Context
+from importlib.metadata import version
 
-from gitdida import __version__
+
 from gitdida.config import settings
 from gitdida.log import init_log
 
@@ -19,7 +20,7 @@ from gitdida.log import init_log
 def main(ctx: Context, version: str, verbose: bool, debug: bool):
     """Main commands"""
     if version:
-        click.echo(__version__)
+        click.echo(version("gitdida"))
     elif ctx.invoked_subcommand is None:
         click.echo(ctx.get_help())
     else:

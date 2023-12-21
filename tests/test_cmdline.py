@@ -1,10 +1,11 @@
 """Test cmdline"""
 from __future__ import annotations  # PEP 585
+from importlib.metadata import version
 
 import pytest
 from click.testing import CliRunner
 
-from example_etl import __version__
+_version = version('gitdida')
 from gitdida.cmdline import main
 
 
@@ -13,8 +14,8 @@ from gitdida.cmdline import main
     [
         ([], 0, "help"),
         (["--help"], 0, "help"),
-        (["--version"], 0, __version__),
-        (["-V"], 0, __version__),
+        (["--version"], 0, _version),
+        (["-V"], 0, _version),
         (["--debug", "--verbose", "run"], 0, "run"),
     ],
 )

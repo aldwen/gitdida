@@ -44,4 +44,6 @@ https://zhuanlan.zhihu.com/p/521512177
 在编写第一个测试 test_version时，我就卡住了，importlib.metadata 无法获得项目的版本号，从23点到2点。chatGPT 和 Bard 都无法给出正确的解决答案。最后，在stack overflow提问时，我看到了类似问题，需要 进行 poetry install, 这样，poetry 就会安装 正在开发的项目，从而，importlib 就可以读取版本号了。唉.....
 今晚到此为止。
 
+## 2023-12-21 22:13:48
+
 
