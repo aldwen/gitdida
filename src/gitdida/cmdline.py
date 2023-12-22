@@ -4,35 +4,66 @@ from gitdida.config import settings
 from gitdida.__main__ import dojob, dodida
 
 
-@click.command()
-@click.option("--help", is_flag=True, help="Display help message.")
-@click.option("--run", is_flag=True, help="Execute the default workflow.")
-@click.option("--version", is_flag=True, help="Display version number.")
-@click.option("--disable-dida", is_flag=True, help="Disable dida feature.")
-@click.option("--repository", type=str, help="Specify the repository.")
-@click.option("--branch", type=str, help="Specify the branch.")
-@click.option("--remote", type=str, help="Specify the remote.")
-@click.version_option(version=gitdida.app_ver, prog_name=gitdida.app_name)
-def main(help, run, version, disable_dida, repository, branch, remote):
-    """A simple CLI application."""
-    if version:
-        click.echo(f"{prog_name}, version {app_version}")
-    elif help:
-        click.echo(main.get_help(ctx=None))
-    else:
-        if run or (not repository and not branch and not remote):
-            # Execute dojob with default values or provided values
-            dojob(repository, branch, remote)
+def print_version(ctx, param, value):
+    if not value or ctx.resilient_parsing:
+        return
+    click.echo(f"{gitdida.app_name}, version {gitdida.app_ver}")
+    ctx.exit()
 
-            # If disable-dida is not specified, continue with dodida
-            if not disable_dida:
-                dodida()
-        else:
-            click.echo("No valid command specified. Use --help for usage information.")
+
+@click.command()
+@click.option(
+    "-d", "--disable-dida", "nodida", is_flag=True, help="Disable add message to Dida."
+)
+@click.option(
+    "--repository",
+    type=str,
+    help="Specify the repository, instead of from configuration.",
+)
+@click.option(
+    "--branch",
+    type=str,
+    help="Specify the branch, instead of from configuration. ",
+)
+@click.option(
+    "--remote",
+    type=str,
+    help="Specify the remote, instead of from configuration.",
+)
+@click.option(
+    "--version",
+    is_flag=True,
+    callback=print_version,
+    expose_value=False,
+    is_eager=True,
+    help="Show the version and exit.",
+)
+def cmdline(nodida, repository, branch, remote):
+    dojob(repository, branch, remote)
+    if not nodida:
+        dodida()
+
+
+# def cmdrun( disable_dida, repository, branch, remote):
+#     """A simple CLI application."""
+#     if version:
+#         click.echo(f"{prog_name}, version {app_version}")
+#     elif help:
+#         click.echo(main.get_help(ctx=None))
+#     else:
+#         if run or (not repository and not branch and not remote):
+#             # Execute dojob with default values or provided values
+#             dojob(repository, branch, remote)
+
+#             # If disable-dida is not specified, continue with dodida
+#             if not disable_dida:
+#                 dodida()
+#         else:
+#             click.echo("No valid command specified. Use --help for usage information.")
 
 
 if __name__ == "__main__":
-    main()
+    cmdline()
 
 
 # """Command line"""

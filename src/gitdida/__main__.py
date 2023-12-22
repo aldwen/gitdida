@@ -4,9 +4,16 @@ def RunGitandDida() -> (bool, str):
 
 def dojob(repository="default_repo", branch="default_branch", remote="default_remote"):
     """Simulate the dojob function."""
-    click.echo(f"dojob: repository={repository}, branch={branch}, remote={remote}")
+    if repository is None:
+        repository = "default_repo"
+    if branch is None:
+        branch = "defalut_branch"
+    if remote is None:
+        remote = "default_remote"
+
+    print(f"dojob: repository={repository}, branch={branch}, remote={remote}")
 
 
 def dodida():
     """Simulate the dodida function."""
-    click.echo("dodida: executing additional steps...")
+    print("dodida: executing additional steps...")
