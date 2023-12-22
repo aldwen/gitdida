@@ -6,7 +6,7 @@
 先要建立项目框架
 
 ## 2023-12-20 19:33:38
-TODO: github remote: Support for password authentication was removed on August 13, 2021.
+Done: github remote: Support for password authentication was removed on August 13, 2021.
 
 remote: Please see https://docs.github.com/en/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls for information on currently recommended modes of authentication.
 
@@ -45,5 +45,11 @@ https://zhuanlan.zhihu.com/p/521512177
 今晚到此为止。
 
 ## 2023-12-21 22:13:48
+TODO: 同时提交2个远端仓库，gitee 增加远端
+Done：test_version 应当断语不等于上一个版号
+在VScode 中执行了测试。
+在assert 后加"," 可以自定义错误信息
+
+## 2023-12-21 23:05:18
 
 
