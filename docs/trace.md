@@ -45,7 +45,7 @@ https://zhuanlan.zhihu.com/p/521512177
 今晚到此为止。
 
 ## 2023-12-21 22:13:48
-TODO: 同时提交2个远端仓库，gitee 增加远端
+
 Done：test_version 应当断语不等于上一个版号
 在VScode 中执行了测试。
 在assert 后加"," 可以自定义错误信息
@@ -58,3 +58,6 @@ Done：test_version 应当断语不等于上一个版号
 用了一个晚上时间看了click 的开头一小部分文档，但是够用。ChatGPT 帮助生成了 test_cmdline.py ，少写很多代码。
 命令行入口可用了，今晚结束。
 
+## 2023-12-23 21:29:25
+
+TODO: 同时提交2个远端仓库，gitee 增加远端
