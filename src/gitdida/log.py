@@ -1,11 +1,19 @@
 import logging
 from datetime import datetime
+from pathlib import Path
 
 log_format = "%(asctime)s [%(name)s] [%(levelname)s] %(message)s"
 
 # Todo: 从配置文件里读取自定义 log 路径
 # Default log file like: logs/2023-12.log
 log_file_name = f"logs/{datetime.now().strftime('%Y-%m')}.log"
+
+
+# 使用touch 来确保 log 文件存在，但是为啥 logger 没有自动创建呢？
+log_file = Path(log_file_name)
+log_file.parent.mkdir(parents=True, exist_ok=True)
+# log_file.touch()
+
 
 # 添加控制台处理器
 console_handler = logging.StreamHandler()

@@ -1,7 +1,10 @@
+"""
+CMDline is main enterplace.
+Todo: is this file right?
+"""
 import click
 import gitdida
-from gitdida.config import settings
-from gitdida.__main__ import dojob, dodida
+from gitdida import dogit, dodida
 
 
 def print_version(ctx, param, value):
@@ -39,33 +42,15 @@ def print_version(ctx, param, value):
     help="Show the version and exit.",
 )
 def cmdline(nodida, repository, branch, remote):
-    dojob(repository, branch, remote)
+    dogit.run(repository, branch, remote)
     if not nodida:
-        dodida()
-
-
-# def cmdrun( disable_dida, repository, branch, remote):
-#     """A simple CLI application."""
-#     if version:
-#         click.echo(f"{prog_name}, version {app_version}")
-#     elif help:
-#         click.echo(main.get_help(ctx=None))
-#     else:
-#         if run or (not repository and not branch and not remote):
-#             # Execute dojob with default values or provided values
-#             dojob(repository, branch, remote)
-
-#             # If disable-dida is not specified, continue with dodida
-#             if not disable_dida:
-#                 dodida()
-#         else:
-#             click.echo("No valid command specified. Use --help for usage information.")
+        dodida.run()
 
 
 if __name__ == "__main__":
     cmdline()
 
-
+# example_etl 给出的命令行，有很多的不同，还看不懂
 # """Command line"""
 # import click
 # from click import Context
