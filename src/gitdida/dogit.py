@@ -2,11 +2,14 @@ from datetime import datetime
 from git import Repo, GitCommandError
 from gitdida.log import get_logger
 
-logger = get_logger(__name__)
+logger = get_logger("gitdida.dogit")
+
+logger.info("Hello, iam you")
 
 
 def run(repository, work_branch, remote_name="origin"):
     """Do git work."""
+    print("aaa")
     logger.info(
         "Run dogit.py parameter is repository:{repository}, work_branch:{work_branch},remote_name:{remote_name}"
     )

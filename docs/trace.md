@@ -84,3 +84,20 @@ log_file.parent.mkdir(parents=True, exist_ok=True)
 对此，ChatGPT 给出的解答是：这种设计可能是为了避免在日志记录时在文件系统上创建过多的目录，因为这可能是意外的行为。在实际应用中，通常在初始化时就确保了日志文件所在的目录存在，这样可以避免这类问题。
 
 嗯，在项目的内部，从一开始就要定义好logs 的目录。
+
+## 2023-12-24 11:36:44
+如果要生成命令行程序，需要另外用 pyinstall 进行打包。
+
+tomato 开始
+
+TODO：程序找不到执行（测试）的流程，
+TODO：logger 记录在哪里？
+
+## 2023-12-24 19:26:34
+破案了。
+我明明设置了默认的日志级别为 info，但是输出的却是 warning。终于发现，log.py 里，设置日志的次序是有影响的。我先设置了file_logger，这时他从默认logging 继承了级别: warning. 然后我再设置 logging.basicconfig . 是不能改写到 file_logger 设置的. 解决方法是 logging.basicConfig 要放在最前面。
+
+## 2023-12-24 22:16:46
+User
+我遇到了一个问题，我使用 vscode 作为编辑器，连接到WSL 里的ubuntu 主机，然后当我编辑 log.py 文件后，调用 log.py 的文件并不会调用最新的修改，而是读取修改前的内容。如果我退出 vscode 再重新进去，将调用log.py 的最新版本。这是为什么？要如何修正
+没有解决，将就着用....但是将来的DEBUG 还是可能被这个问题误导

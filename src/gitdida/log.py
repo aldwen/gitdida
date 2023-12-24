@@ -1,36 +1,53 @@
+"""Log"""
 import logging
 from datetime import datetime
 from pathlib import Path
+from gitdida.config import settings
 
-log_format = "%(asctime)s [%(name)s] [%(levelname)s] %(message)s"
+# 目前不支持设置日志记录级别，感觉没有意义
+# file_log_level_str = str(settings.LOGLEVEL).upper()
+# file_log_level = logging.getLevelName(file_log_level_str)
 
-# Todo: 从配置文件里读取自定义 log 路径
 # Default log file like: logs/2023-12.log
-log_file_name = f"logs/{datetime.now().strftime('%Y-%m')}.log"
+# 增加代码确保 log 路径可用
+# 如果 logpath 没有读取到，应当报错跳出。
+log_path_str = settings.LOG_PATH
+log_path = Path(log_path_str)
+log_path.mkdir(parents=True, exist_ok=True)
+log_file_name = log_path / f"{datetime.now().strftime('%Y-%m')}.log"
 
-
-# 使用touch 来确保 log 文件存在，但是为啥 logger 没有自动创建呢？
-log_file = Path(log_file_name)
-log_file.parent.mkdir(parents=True, exist_ok=True)
-# log_file.touch()
-
-
-# 添加控制台处理器
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(logging.Formatter(log_format))
-logging.getLogger().addHandler(console_handler)
-
-# 添加文件处理器
-file_handler = logging.FileHandler(log_file_name)
-file_handler.setFormatter(logging.Formatter(log_format))
-logging.getLogger().addHandler(file_handler)
+# 不支持设置日志格式
+# if settings.log_verbose:
+#     log_format = (
+#         "%(asctime)s [%(name)s] [%(levelname)s] %(process)d %(thread)d %(message)s"
+#     )
+# else:
+log_format = "%(asctime)s [%(levelname)s] %(name)s - %(message)s"
 
 # 配置根日志记录器
 logging.basicConfig(
     format=log_format,
     level=logging.INFO,
-    datefmt="%Y-%m-%dT%H:%M:%S.%s+0800",  # 如果需要带时区的时间戳
+    # datefmt="%Y-%m-%dT%H:%M:%S.%s+0800",  # 如果需要带时区的时间戳
 )
+
+# 添加控制台处理器 使用 DEBUG 级别
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(logging.Formatter(log_format))
+console_handler.setLevel(logging.DEBUG)
+# logging.getLogger().addHandler(console_handler)
+
+if not any(
+    isinstance(handler, logging.StreamHandler)
+    for handler in logging.getLogger().handlers
+):
+    logging.getLogger().addHandler(console_handler)
+
+# 添加文件处理器 使用 INFO 级别
+file_handler = logging.FileHandler(log_file_name)
+file_handler.setFormatter(logging.Formatter(log_format))
+file_handler.setLevel(logging.INFO)
+logging.getLogger().addHandler(file_handler)
 
 
 def get_logger(name=None):
@@ -38,70 +55,3 @@ def get_logger(name=None):
         return logging.getLogger("Default")
     else:
         return logging.getLogger(name)
-
-
-# -------
-# """Log"""
-# import logging
-# import os
-# from logging.config import dictConfig
-
-# from gitdida.config import settings
-
-# os.makedirs(settings.LOGPATH, exist_ok=True)
-
-
-# def verbose_formatter(verbose: int) -> str:
-#     """formatter factory"""
-#     if verbose is True:
-#         return "verbose"
-#     return "simple"
-
-
-# def update_log_level(debug: bool, level: str) -> str:
-#     """update log level"""
-#     if debug is True:
-#         level_num = logging.DEBUG
-#     else:
-#         level_num = logging.getLevelName(level)
-#     settings.set("LOGLEVEL", logging.getLevelName(level_num))
-#     return settings.LOGLEVEL
-
-
-# def init_log() -> None:
-#     """Init log config."""
-#     log_level = update_log_level(settings.DEBUG, str(settings.LOGLEVEL).upper())
-
-#     log_config = {
-#         "version": 1,
-#         "disable_existing_loggers": False,
-#         "formatters": {
-#             "verbose": {
-#                 "format": "%(asctime)s %(levelname)s %(name)s %(process)d %(thread)d %(message)s",
-#             },
-#             "simple": {
-#                 "format": "%(asctime)s %(levelname)s %(name)s %(message)s",
-#             },
-#         },
-#         "handlers": {
-#             "console": {
-#                 "formatter": verbose_formatter(settings.VERBOSE),
-#                 "level": "DEBUG",
-#                 "class": "logging.StreamHandler",
-#             },
-#             "file": {
-#                 "class": "logging.handlers.RotatingFileHandler",
-#                 "level": "DEBUG",
-#                 "formatter": verbose_formatter(settings.VERBOSE),
-#                 "filename": os.path.join(settings.LOGPATH, "all.log"),
-#                 "maxBytes": 1024 * 1024 * 1024 * 200,  # 200M
-#                 "backupCount": "5",
-#                 "encoding": "utf-8",
-#             },
-#         },
-#         "loggers": {
-#             "": {"level": log_level, "handlers": ["console"]},
-#         },
-#     }
-
-#     dictConfig(log_config)

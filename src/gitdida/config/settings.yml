@@ -1,4 +1,0 @@
-verbose: false
-debug: false
-loglevel: warning
-LOGPATH: /tmp/example_etl

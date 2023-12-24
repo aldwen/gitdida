@@ -16,12 +16,12 @@ gitdida = "gitdida.cmdline:cmdline"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-dynaconf = "^3.2.4"
 requests = "^2.31.0"
 pytest = "^7.4.3"
 click = "^8.1.7"
 gitpython = "^3.1.40"
 ipykernel = "^6.27.1"
+dynaconf = "^3.2.4"
 
 
 [build-system]
