@@ -90,8 +90,8 @@ log_file.parent.mkdir(parents=True, exist_ok=True)
 
 tomato 开始
 
-TODO：程序找不到执行（测试）的流程，
-TODO：logger 记录在哪里？
+Done：程序找不到执行（测试）的流程，
+Done：logger 记录在哪里？
 
 ## 2023-12-24 19:26:34
 破案了。
@@ -101,3 +101,38 @@ TODO：logger 记录在哪里？
 User
 我遇到了一个问题，我使用 vscode 作为编辑器，连接到WSL 里的ubuntu 主机，然后当我编辑 log.py 文件后，调用 log.py 的文件并不会调用最新的修改，而是读取修改前的内容。如果我退出 vscode 再重新进去，将调用log.py 的最新版本。这是为什么？要如何修正
 没有解决，将就着用....但是将来的DEBUG 还是可能被这个问题误导
+
+## 2023-12-25 17:07:40 
+logging 模块的问题最终得到了解决。我自己写的 config 找到了问题所在。官方的 config 示例也能完全看懂，并配置成功。
+话费了很多时间。
+开始编写 DoGit 的代码。
+
+## 2023-12-26 00:08:40
+还是没有开始编写 DoGit 的代码。
+当我开始编写代码的时候，我会想到我应当先编写测试。在目前阶段，这是错误的想法。测试驱动开发（TDD）是非常有用的技能。但是，为了编写TEST，我们需要具备编写全流程代码的能力。Test 是代码的抽象，编写 Test 是比编写代码更高的能力。先编写出能跑完流程的代码，再去考虑 Test 的编写！
+
+现在考虑DoGit代码的测试。
+我们无法进入代码块内部进行测试，我们必须依赖于函数的返回值。因此，被测试的代码应当是函数，应当有返回值。这促进我代码的修改。
+可以通过print将信息发送到控制台，pytest可以捕获print，但是这些print对程序运行不是必要的，这不是一个好办法。
+我尝试通过log.info 将信息发送到控制台。但是，pytest 无法直接读取 logging 打印的信息。
+通过caplog，我现在可以获取代码块的log信息，并进行对比。但是，我的测试代码变得很复杂：
+```Python
+def test_dojob_with_args(cli_runner: CliRunner, caplog):
+    with caplog.at_level(logging.INFO):
+        result = cli_runner.invoke(
+            cmdline,
+            ["--repository", "rrr", "--branch", "bbb", "--remote", "ooo"],
+        )
+        assert result.exit_code == 0
+        assert any(
+            "repository=rrr, work_branch=bbb, remote_name=ooo" in record.message
+            for record in caplog.records
+        )
+        assert "Succeed" in caplog.text
+        assert "dodida: executing additional steps..." in result.output
+```
+我感觉看懂测试代码都困难。
+是否应当通过 mock 模块配置条件，从而只检查返回值？
+
+
+

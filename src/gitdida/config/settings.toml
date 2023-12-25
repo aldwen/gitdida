@@ -1,2 +1,5 @@
 LOG_PATH = "logs"
-newa = 'bbb'
+
+# repo_path = 'D://AldWen/DocsGit/obsidian-git//.git'
+repo_path = 'ttt D://AldWen/DocsGit/obsidian-git//.git'
+work_branch ='wenworkra'
