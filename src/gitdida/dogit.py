@@ -1,4 +1,8 @@
-from git import Repo, GitError
+"""
+DoGit.
+
+"""
+from git import Repo, GitError, NoSuchPathError, InvalidGitRepositoryError
 from gitdida.log import get_logger
 from gitdida.config import settings
 
@@ -14,7 +18,7 @@ def run(repo_path, work_branch, remote_name) -> (bool, str):
             )
             return (
                 False,
-                f"'repo_path' was not defined in settings.toml, or no paramter gave.",
+                "'repo_path' was not defined in settings.toml, or no paramter gave.",
             )
         repo_path = settings.repo_path
     if work_branch is None:
@@ -24,7 +28,7 @@ def run(repo_path, work_branch, remote_name) -> (bool, str):
             )
             return (
                 False,
-                f"'work_branch' was not defined in settings.toml, or no paramter gave.",
+                "'work_branch' was not defined in settings.toml, or no paramter gave.",
             )
         work_branch = settings.work_branch
     if remote_name is None:
@@ -37,14 +41,8 @@ def run(repo_path, work_branch, remote_name) -> (bool, str):
         work_branch,
         remote_name,
     )
-    # print(
-    #     f"Run() Parameter is repository={repo_path}, work_branch={work_branch}, remote_name={remote_name}"
-    # )
     try:
         repo = Repo(repo_path)
-        # if repo.git_dir is None:
-        #     logger.error("Initial repository flase.")
-        #     return False, "Initial repository flase."
         repo.git.fetch()
         repo.git.checkout(work_branch)
         repo.git.pull()
@@ -54,10 +52,15 @@ def run(repo_path, work_branch, remote_name) -> (bool, str):
             return True, "Nothing to commit. "
         repo.index.commit("Auto commit by GitDida.")
         repo.remotes[remote_name].push()
+    except NoSuchPathError as e:
+        logger.error("指定的仓库路径不存在：%s", str(e))
+        return False, f"指定的仓库路径不存在：{str(e)}"
+    except InvalidGitRepositoryError as e:
+        logger.error("无效的 Git 仓库：%s", str(e))
+        return False, f"无效的 Git 仓库：{str(e)}"
     except GitError as e:
-        # 捕捉git命令错误
-        logger.error("Info：%s", str(e))
-        return False, f"Info：{str(e)}"
+        logger.error("发生了一个 Git 错误：%s", str(e))
+        return False, f"发生了一个 Git 错误：{str(e)}"
 
     logger.info("Succeed.")
     return True, "Do Git finished."

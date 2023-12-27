@@ -45,10 +45,8 @@ def print_version(ctx, param, value):
 )
 def cmdline(nodida, repository, branch, remote):
     git_succeed, message = dogit.run(repository, branch, remote)
-    if not git_succeed:
-        return False
     if not nodida:
-        dodida.run()
+        dodida.run(git_succeed, message)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "gitdida"
-version = "0.2.1"
+version = "0.3.0"
 description = "Auto commit with Gitpython, and send message with Dida365 if error occur."
 authors = ["aldwen <7362677@qq.com>"]
 license = "MIT"
