@@ -138,9 +138,16 @@ def test_dojob_with_args(cli_runner: CliRunner, caplog):
 整理 doGit 的代码：
     调整log输出
     增加了没有更新不提交git的判断。
+    配置文件里引入测试仓库地址。
 问题：
     remote_name 获取失败
     test 尚未编写。
+    约定式提交需要自我整理一下。
+
+## 2023-12-27 18:48:15
+Interval（dogit.py)：修改dogit 代码。
+
+发现gitcommanderror 没有捕获到 repository 没有建立的错误。已经修改为giterror。但是新的问题是，如何在信息里返回关于错误的更多的提示？
 
 
 
