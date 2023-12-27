@@ -1,8 +1,7 @@
 from gitdida.log import get_logger
-from datetime import datetime
-from git import Repo, GitCommandError
+from gitdida.config import settings
 
-logger = get_logger(__name__)
+logger = get_logger("GitDida.doDida")
 
 
 def run():
