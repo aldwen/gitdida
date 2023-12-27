@@ -1,5 +1,5 @@
 LOG_PATH = "logs"
 
 # repo_path = 'D://AldWen/DocsGit/obsidian-git//.git'
-repo_path = 'ttt D://AldWen/DocsGit/obsidian-git//.git'
-work_branch ='wenworkra'
+repo_path = '~/coding/pystudy/ttt//.git'
+work_branch ='main'

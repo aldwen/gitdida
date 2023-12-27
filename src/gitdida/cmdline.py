@@ -6,7 +6,7 @@ import gitdida
 from gitdida import dogit, dodida
 from gitdida.log import get_logger
 
-logger = get_logger("gitdida.cmdline")
+logger = get_logger("GitDida.cmdline")
 
 
 def print_version(ctx, param, value):
@@ -44,8 +44,8 @@ def print_version(ctx, param, value):
     help="Show the version and exit.",
 )
 def cmdline(nodida, repository, branch, remote):
-    dogit.run(repository, branch, remote)
-    if not nodida:
+    git_succeed, message = dogit.run(repository, branch, remote)
+    if not nodida and git_succeed:
         dodida.run()
 
 

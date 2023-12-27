@@ -134,5 +134,13 @@ def test_dojob_with_args(cli_runner: CliRunner, caplog):
 我感觉看懂测试代码都困难。
 是否应当通过 mock 模块配置条件，从而只检查返回值？
 
+## 2023-12-27 14:52:46
+整理 doGit 的代码：
+    调整log输出
+    增加了没有更新不提交git的判断。
+问题：
+    remote_name 获取失败
+    test 尚未编写。
+
 
 
