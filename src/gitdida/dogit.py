@@ -32,11 +32,10 @@ def run(repo_path, work_branch, remote_name) -> (bool, str):
             )
         work_branch = settings.work_branch
     if remote_name is None:
-        print("remote_name is None")
         remote_name = getattr(settings, "remote_name", "origin")
 
     logger.info(
-        "Run()'s Parameter is repository=%s, work_branch=%s, remote_name=%s",
+        "Parameter is repository=%s, work_branch=%s, remote_name=%s",
         repo_path,
         work_branch,
         remote_name,

@@ -1,11 +1,13 @@
 """
 CMDline is main enterplace.
 """
+import sys
 import click
 import gitdida
 from gitdida import dogit, dodida
 from gitdida.log import get_logger
 
+sys.path.append("src/dida365api")
 logger = get_logger("GitDida.cmdline")
 
 
